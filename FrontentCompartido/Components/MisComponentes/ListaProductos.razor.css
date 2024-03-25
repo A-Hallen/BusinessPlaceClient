@@ -1,0 +1,23 @@
+﻿.inline {
+    overflow: auto;
+    padding: 20px;
+    margin: 5px;
+    grid-gap: 10px;
+    grid-auto-flow: column;
+}
+
+div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 15px;
+    margin: 5px;
+    justify-items: center;
+}
+
+
+/* cambios css solo para modo vertical en dispositivos moviles */
+@media only screen and (min-width: 320px) and (max-width: 736px) and (orientation: portrait) {
+    div {
+        grid-template-columns: none;
+    }
+}

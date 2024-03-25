@@ -1,0 +1,65 @@
+﻿@using System.ComponentModel;
+@inject IBasicViewModel ViewModel
+@implements IDisposable
+
+<div class="@_inlineClass">
+
+    @if (ViewModel.Productos != null)
+    {
+        @foreach (Producto producto in ViewModel.Productos)
+        {
+            <ProductCard margin="10px"
+                         Id=@producto.Id
+                         nombre="@producto.Nombre"
+                         imgUrl="@producto.ImagenUrl"
+                         precio=@producto.Precio
+                         oferta=@producto.Oferta
+                         colorDominante=@producto.ColorDominante
+                         colorSecundario=@producto.ColorSecundario
+                         IsNew=@producto.IsNew
+                         resumen="@producto.Descripcion" />
+        }
+    }
+
+</div>
+
+@code {
+    private string _inlineClass = "";
+
+    private bool _IsInline;
+    [Parameter]
+    public bool IsInline
+    {
+        get { return _IsInline; }
+        set
+        {
+            _IsInline = value;
+            if (value)
+            {
+                _inlineClass = "inline";
+            }
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        ViewModel.GetProducts();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel.PropertyChanged += async (sender, e) =>
+        {
+            await InvokeAsync(() => StateHasChanged());
+        };
+        await base.OnInitializedAsync();
+    }
+
+    async void OnPropertyChangedHandler(object? sender, PropertyChangedEventArgs e)
+    {
+        await InvokeAsync(() => StateHasChanged());
+    }
+
+    public void Dispose() => ViewModel.PropertyChanged -= OnPropertyChangedHandler;
+}

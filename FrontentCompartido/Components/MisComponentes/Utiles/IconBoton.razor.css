@@ -1,0 +1,14 @@
+﻿
+span {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+    span:active {
+        background-color: var(--soft-bg);
+    }

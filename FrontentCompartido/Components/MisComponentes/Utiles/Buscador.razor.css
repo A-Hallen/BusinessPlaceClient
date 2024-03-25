@@ -1,0 +1,46 @@
+﻿.buscador {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    max-width: 700px;
+    width: 100%;
+    padding-inline: 20px;
+    box-sizing: border-box;
+}
+
+span {
+    position: absolute;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    margin-left: 10px;
+}
+
+input {
+    border: 1px solid #CED4DA;
+    transition: border-color 200ms ease-in-out;
+    background-color: #ECF0F5;
+    border-radius: 50px;
+    height: 50px;
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 20px;
+}
+
+    input:focus {
+        border-color: var(--secondary-color);
+        outline: 0;
+    }
+
+input::after {
+    background-color: red;
+}
+input::before {
+    background-color: yellow;
+}

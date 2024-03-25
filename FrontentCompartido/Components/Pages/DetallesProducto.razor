@@ -1,0 +1,71 @@
+﻿@page "/detallesproducto/{id:int}"
+@using System.ComponentModel;
+@inject IBasicViewModel ViewModel
+@implements IDisposable
+
+<div class=container>
+    <div class="detail">
+        <div class="image">
+            <img src="@_Producto?.ImagenUrl" alt="" />
+        </div>
+        <div class="content">
+            <h1 class="name">@_Producto?.Nombre</h1>
+            <div class="price">$@_Producto?.Precio</div>
+            <div class="buttons">
+                <button @onclick=@AgregarACarrito>
+                    @Idioma.AgregarAlCarrito
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);"><path d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.994 1.994 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921z"></path><circle cx="10.5" cy="19.5" r="1.5"></circle><circle cx="17.5" cy="19.5" r="1.5"></circle></svg>
+                    </span>
+                </button>
+            </div>
+            <div class="description">
+                @_Producto?.Descripcion
+            </div>
+        </div>
+    </div>
+    <style>
+        .container {
+            background-color: white;
+        }
+    </style>
+    @* <div class="title">PRODUCTOS SIMILARES</div>
+    <div class="listProduct"></div>*@
+</div>
+
+@code{
+    [Parameter]
+    public int? Id { get; set; }
+
+    private Producto? _Producto;
+
+    protected override void OnParametersSet()
+    {
+        _Producto = ViewModel.Productos?.Find(_producto => _producto.Id == this.Id);
+    }
+
+    private void AgregarACarrito()
+    {
+        if (_Producto == null) return;
+        List<int> ids = ViewModel.ProductosDelCarrito;
+        List<int> newIds = ids;
+        newIds.Add(_Producto.Id);
+        ViewModel.ProductosDelCarrito = newIds;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel.PropertyChanged += async (sender, e) =>
+        {
+            await InvokeAsync(() => StateHasChanged());
+        };
+        await base.OnInitializedAsync();
+    }
+
+    async void OnPropertyChangedHandler(object? sender, PropertyChangedEventArgs e)
+    {
+        await InvokeAsync(() => StateHasChanged());
+    }
+
+    public void Dispose() => ViewModel.PropertyChanged -= OnPropertyChangedHandler;
+}

@@ -1,0 +1,77 @@
+﻿@using System.ComponentModel;
+@inject IBasicViewModel ViewModel
+@implements IDisposable
+
+<div class="@estilo">
+    <h1>@Idioma.Carrito</h1>
+    <div class="listCart">
+        @if (ViewModel.Productos != null)
+        {
+            // La advertencia de abajo no tiene mucho sentido ya que aca arriba hay un if que comprueba que Productos no es null ;)
+            @foreach (Producto producto in ViewModel.Productos?.FindAll(_product =>
+          ViewModel.ProductosDelCarrito.Contains(_product.Id)
+         ))
+            {
+                       <ItemCarrito Id=@producto.Id
+                             Nombre=@producto.Nombre
+                             ColorSecundario="@producto.ColorSecundario"
+                             ImgUrl="@producto.ImagenUrl"
+                             Oferta=@producto.Oferta
+                             Precio=@producto.Precio/>
+            }
+        }
+    </div>
+    <ul>
+        <li>
+            <div>@Idioma.Total: </div>
+            <div>@ViewModel.TotalCarrito</div>
+         </li>
+
+
+    </ul>
+
+    <div class="btn">
+        <button class="close" @onclick=@ToggleCart>@Idioma.Cerrar.ToUpper()</button>
+        <button class="checkOut">@Idioma.Comprar.ToUpper()</button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback ToggleCart { get; set; }
+
+    private string estilo { get; set; } = "cartTab";
+
+    [Parameter]
+    public bool Visibility
+    {
+        set
+        {
+            if (value)
+            {
+                estilo = "cartTab showCart";
+            }
+            else
+            {
+                estilo = "cartTab";
+            }
+        }
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel.PropertyChanged += async (sender, e) =>
+        {
+            await InvokeAsync(() => StateHasChanged());
+        };
+        await base.OnInitializedAsync();
+    }
+
+    async void OnPropertyChangedHandler(object? sender, PropertyChangedEventArgs e)
+    {
+        await InvokeAsync(() => StateHasChanged());
+    }
+
+    public void Dispose() => ViewModel.PropertyChanged -= OnPropertyChangedHandler;
+}

@@ -1,0 +1,23 @@
+﻿div {
+    width: 140px;
+    height: 155px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+div p {
+    padding-inline: 10px;
+}
+
+div img {
+    width: 80px;
+    max-height: 100px;
+    object-fit: contain;
+}

@@ -1,0 +1,42 @@
+﻿@page "/"
+
+<div>
+    <LandingPage Imagenes=@Imagenes />
+    <div class="contenido">
+        <div class="top-popular">
+            <p>Categorias populares</p>
+            <NavLink href="/categorias">
+                <IconBoton radius="50%" size="medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                </IconBoton>
+            </NavLink>
+        </div>
+        <ListaCategoria IsInline=true />
+        <div class="top-popular">
+            <p>Productos populares</p>
+            <NavLink href="/productos">
+                <IconBoton radius="50%" size="medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                </IconBoton>
+            </NavLink>
+        </div>
+        <ListaProductos IsInline=true />
+    </div>
+</div>
+
+@code {
+    private string[] Imagenes = { "_content/FrontentCompartido/imagenes/fondo1.jpg", "_content/FrontentCompartido/imagenes/fondo2.jpg", "_content/FrontentCompartido/imagenes/fondo3.jpg" };
+}
+
+@* style="
+	background-color: var(--soft-bg);
+	border-radius: 6px;
+	padding: 10px;
+	height: 100%;
+	box-sizing: border-box;
+"
+ *@

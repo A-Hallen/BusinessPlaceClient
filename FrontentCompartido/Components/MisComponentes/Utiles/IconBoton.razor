@@ -1,0 +1,47 @@
+﻿<span @onclick="@OnClick" style="@_size; margin: @margin; border-radius: @radius">
+    @if (path == "")
+    {
+        @ChildContent
+    } else
+    {
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d=@path></path></svg>
+    }
+</span>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public string margin { get; set; } = "10px";
+    [Parameter]
+    public string path { get; set; } = "";
+
+    [Parameter]
+    public string radius { get; set; } = "5px";
+
+    [Parameter]
+    public string size {
+        get { return _size; }
+        set
+        {
+            switch (value)
+            {
+                case "small":
+                    _size = "width: 30px; height: 30px";
+                    break;
+                case "medium":
+                    _size = "width: 40px; height: 40px";
+                    break;
+                case "big":
+                    _size = "width: 50px; height: 50px";
+                    break;
+            }
+        } 
+    }
+
+    private string _size = "width: 30px; height: 30px";
+}

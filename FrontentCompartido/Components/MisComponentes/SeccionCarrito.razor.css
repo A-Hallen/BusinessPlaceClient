@@ -1,0 +1,92 @@
+﻿.cartTab {
+    width: 90%;
+    background-color: white;
+    color: gray;
+    position: fixed;
+    inset: 0 -450px 0 auto;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    z-index: 2;
+    box-shadow: -3px -1px 8px 0px #00000052;
+    padding: 5px;
+    margin-top: 64px;
+    min-width: 300px;
+    max-width: 400px;
+    transition: all .40s ease
+}
+
+.showCart {
+    inset: 0 0 0 auto;
+}
+
+.cartTab h1 {
+    font-weight: bold;
+    margin: auto;
+    font-size: 1.7rem;
+    color: black;
+}
+
+.cartTab .btn {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 65px;
+}
+
+    .cartTab .btn button {
+        border-radius: 10px;
+        margin: 10px;
+        font-weight: 500;
+        cursor: pointer;
+        border: none;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+    }
+
+    .cartTab .btn .checkOut {
+        color: white;
+        background-color: #0e0227;
+    }
+
+    .cartTab .btn .close {
+        background-color: white;
+        box-shadow: 1px 1px 4px 0px #00000066;
+    }
+
+
+.listCart {
+    overflow: auto;
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+    .listCart::-webkit-scrollbar {
+        width: 0;
+    }
+
+.divider, p {
+    align-self: end;
+}
+
+.divider {
+    height: 1px;
+    background: gray;
+}
+
+ul {
+    box-shadow: 0px 0px 3px 0px;
+    border-radius: 5px;
+    padding: inherit;
+    margin-inline: 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+li {
+    padding: 7px;
+    margin-inline: 10px;
+    display: flex;
+    justify-content: space-between;
+}

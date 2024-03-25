@@ -1,0 +1,24 @@
+﻿<NavLink href="/productos">
+    <div style="background-color: @ColorFondo; color: @TextColor;">
+        <img src="@ImagenUrl" />
+        <p>@Nombre</p>
+    </div>
+</NavLink>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public string Nombre { get; set; } = string.Empty;
+
+    [Parameter]
+    public string ImagenUrl { get; set; } = string.Empty;
+
+    [Parameter]
+    public string ColorFondo { get; set; } = string.Empty;
+
+    [Parameter]
+    public string TextColor { get; set; } = "black";
+}
+

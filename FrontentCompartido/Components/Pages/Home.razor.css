@@ -1,0 +1,14 @@
+﻿.top-popular {
+    padding-inline: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    top: 20px;
+    position: relative;
+}
+
+.contenido p {
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+}

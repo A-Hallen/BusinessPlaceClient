@@ -1,0 +1,138 @@
+﻿header {
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    position: fixed;
+    background: var(--bg-color);
+    box-shadow: 0px 2px 18px 0 rgb(129 162 182 / 20%);
+    display: grid;
+    padding-inline: 10px;
+    transition: .3s;
+    text-decoration: none;
+    box-sizing: border-box;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+}
+
+.logo {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 0.8;
+    padding: 10px;
+    background: #f3f3f3;
+    border-radius: 6px;
+    padding-inline: 20px;
+    width: fit-content;
+}
+
+header ul {
+    list-style: none;
+}
+
+.navbar {
+    display: flex;
+    z-index: 10002;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+}
+
+    .navbar li {
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+        .navbar li:hover {
+            background-color: var(--soft-bg);
+        }
+
+    .navbar a {
+        font-size: var(--p-font);
+        color: var(--text-color);
+        font-weight: 600;
+        padding: 10px 15px;
+        margin: 0 10px;
+        transition: all .40s ease
+    }
+
+.icons {
+    display: flex;
+    justify-self: end;
+    align-items: center;
+}
+
+    .icons a {
+        text-decoration: none;
+        margin: 5px;
+    }
+
+    .icons .icon-cart {
+        display: inline-block;
+        cursor: pointer;
+    }
+    .icons div span {
+        display: flex;
+        width: 25px;
+        height: 25px;
+        background-color: red;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        margin-left: 15px;
+        font-size: 14px;
+    }
+
+#menu-icon {
+    font-size: 38px;
+    color: var(--text-color);
+    z-index: 10001;
+    display: none;
+    margin-right: 10px;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+@media (max-width: 800px) {
+    #menu-icon {
+        border-radius: 5px;
+        display: flex;
+        padding: 5px;
+        cursor: pointer;
+        width: fit-content;
+    }
+
+        #menu-icon:active, #menu-icon:hover {
+            background: lightgrey;
+        }
+
+    .navbar {
+        top: -500px;
+        left: 0;
+        right: 0;
+        position: absolute;
+        flex-direction: column;
+        background: var(--bg-color);
+        box-shadow: 0px 2px 18px 0 rgb(129 162 182 / 20%);
+        transition: all .40s ease;
+    }
+
+        .navbar li {
+            padding: 0px;
+            border-radius: 0px;
+        }
+
+        .navbar a {
+            display: block;
+            padding: 1rem;
+            margin: 0.5rem;
+        }
+
+        .navbar.active {
+            top: 100%;
+        }
+}

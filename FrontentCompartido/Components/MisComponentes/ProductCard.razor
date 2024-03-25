@@ -1,0 +1,134 @@
+﻿@inject NavigationManager Navigation
+@using System.ComponentModel;
+@inject IBasicViewModel ViewModel
+@implements IDisposable
+
+<div class="card">
+
+    @if (IsNew)
+    {
+        <div class="contenedor-novedad">
+            <div class="ribbon ribbon-top-left"><span>@Idioma.Nuevo</span></div>
+        </div>
+    }
+    <section class="producto">
+
+        <div class="contenedor-imagen" style="background: radial-gradient(@colorSecundario, @colorDominante);">
+            @if (mostrarImagen)
+            {
+                <img loading="lazy" src="@imgUrl" alt="green apple slice" @onerror="HandleImgError" @onload="HandleLoad">
+            }
+        </div>
+
+        <a @onclick=@IrADetalles>
+            <h1>@nombre</h1>
+        </a>
+        <div class="precio">
+            @foreach (string value in ObtenerPrecioAdornado(precio, oferta))
+            {
+                <span>@value</span>
+            }
+
+        </div>
+        <div class="detalles">
+
+            <p>
+                @resumen
+            </p>
+
+        </div>
+        <RippleButton OnClick="@AgregarACarrito">
+            @Idioma.AgregarAlCarrito
+        </RippleButton>
+    </section>
+</div>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public decimal precio { get; set; }
+
+    [Parameter]
+    public decimal oferta { get; set; }
+
+    [Parameter]
+    public string colorDominante { get; set; } = "#96e001";
+
+    [Parameter]
+    public string colorSecundario { get; set; } = "#e5f89e";
+
+    [Parameter]
+    public string resumen { get; set; } = string.Empty;
+
+    [Parameter]
+    public string nombre { get; set; } = string.Empty;
+
+    [Parameter]
+    public string categoria { get; set; } = string.Empty;
+
+    [Parameter]
+    public string imgUrl { get; set; } = "";
+
+    [Parameter]
+    public bool IsNew { get; set; } = false;
+
+    [Parameter]
+    public string margin { get; set; } = "auto";
+
+    private bool mostrarImagen = true;
+
+    public string[] ObtenerPrecioAdornado(decimal precio, decimal oferta)
+    {
+        decimal numero = (oferta > 0) ? oferta : precio;
+        int left = (int)numero;
+        decimal _right = numero - left;
+        string right = string.Empty;
+        if(_right > 0)
+        {
+            right = $".{_right.ToString().Remove(0, 2)}";
+        }
+
+        if (oferta < precio && oferta > 0)
+        {
+            decimal _descuento = 100 - oferta / precio * 100;
+            decimal discount = (decimal)Math.Round(_descuento);
+            return [$"${left}", right, $"-{discount}%", $"${precio}"];
+        }
+
+        return [$"${left}", right];
+    }
+
+    private void HandleImgError(ErrorEventArgs e) => mostrarImagen = false;
+    private void HandleLoad(ProgressEventArgs e) => mostrarImagen = true;
+
+    private void IrADetalles() => Navigation.NavigateTo($"detallesproducto/{Id}");
+
+    private void AgregarACarrito()
+    {
+        List<int> ids = ViewModel.ProductosDelCarrito;
+        List<int> newIds = ids;
+        newIds.Add(Id);
+        ViewModel.ProductosDelCarrito = newIds;
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel.PropertyChanged += async (sender, e) =>
+        {
+            await InvokeAsync(() => StateHasChanged());
+        };
+        await base.OnInitializedAsync();
+    }
+
+    async void OnPropertyChangedHandler(object? sender, PropertyChangedEventArgs e)
+    {
+        await InvokeAsync(() => StateHasChanged());
+    }
+
+    public void Dispose() => ViewModel.PropertyChanged -= OnPropertyChangedHandler;
+
+}   

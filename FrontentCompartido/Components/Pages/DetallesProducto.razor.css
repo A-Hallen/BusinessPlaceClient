@@ -1,0 +1,135 @@
+﻿.detail {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+}
+
+.detail .image img {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    object-fit: contain;
+}
+
+.detail .image::before {
+    position: absolute;
+    width: 300px;
+    content: '';
+    background-color: black;
+    z-index: -1;
+    border-radius: 190px 100px 170px 180px;
+    left: calc(50% - 150px);
+    top: 50px;
+    object-fit: contain;
+}
+
+.detail .name {
+    font-size: xx-large;
+    padding: 40px 0 0 0;
+    margin: 0 0 10px 0;
+}
+
+.detail .price {
+    font-weight: bold;
+    font-size: x-large;
+    letter-spacing: 7px;
+    margin-bottom: 20px;
+}
+
+.detail .buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+    .detail .buttons button {
+        background-color: #2f2f2f;
+        color: #eee;
+        border: none;
+        padding: 15px 20px;
+        font-size: large;
+        cursor: pointer;
+        display: flex;
+        border-radius: 10px;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 10px 20px #2f2f2f77;
+    }
+
+        .detail .buttons button:hover {
+            transform: scale(1.1)
+        }
+
+    .detail .buttons svg {
+        width: 15px;
+    }
+
+    .detail .buttons span {
+        background-color: #555454;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-left: 20px;
+        color: #eee;
+    }
+
+
+.detail .description {
+    margin-top: 20px;
+    font-weight: 300;
+    text-align: left;
+}
+
+
+/* Ipad */
+@media screen and (max-width: 992px) {
+    .listProduct {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .detail {
+        grid-template-columns: 40% fr;
+    }
+}
+
+/* Movil */
+@media screen and (max-width: 768px) {
+    .listProduct {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .detail {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 5px;
+    }
+
+        .detail .image img {
+            width: unset;
+            height: 40vh;
+        }
+
+        .detail .name {
+            font-size: x-large;
+            margin: 0;
+            padding: 0;
+        }
+
+        .detail .buttons button {
+            font-size: small;
+        }
+
+        .detail .buttons {
+            justify-content: center;
+        }
+}

@@ -1,0 +1,15 @@
+﻿.inline {
+    overflow: auto;
+    margin: 20px;
+    grid-auto-flow: column;
+    margin-bottom: 0;
+}
+
+div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-gap: 10px;
+    justify-items: center;
+    align-items: start;
+    align-content: stretch;
+}

@@ -1,0 +1,25 @@
+﻿<div id="carrusel-contenido">
+    <RippleButton style="position: absolute;
+                         top: 50%;
+                         transform: translate(0, -50%);
+                         margin-left: 10%;">
+        @Idioma.Login
+    </RippleButton>
+    <div id="carrusel-caja">
+        @foreach (string imagen in Imagenes)
+        {
+            <div class="carrusel-elemento">
+                <img class="imagenes" src=@imagen>
+            </div>
+        }
+    </div>
+</div>
+
+@* <div>
+    <img src="@ImagenUrl" />
+</div>
+ *@
+@code {
+    [Parameter]
+    public string[] Imagenes { get; set; } = { };
+}

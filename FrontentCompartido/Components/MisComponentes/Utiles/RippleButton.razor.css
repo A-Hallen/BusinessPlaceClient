@@ -1,0 +1,29 @@
+﻿button {
+    border-radius: 5px;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    transition: background 0.8s;
+    border: none;
+    cursor: pointer;
+    padding: 1em;
+    color: white;
+    box-shadow: 0 0 4px #999;
+    outline: none;
+    background: linear-gradient(to right, #FF416C, #FF4B2B);
+    background-position: center;
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+    button:hover {
+        background: var(--primary-color) radial-gradient(circle, transparent 1%, var(--primary-color) 1%) center/15000%;
+    }
+
+    button:active {
+        background-color: #ff5555;
+        background-size: 100%;
+        transition: background 0s;
+    }
+
+

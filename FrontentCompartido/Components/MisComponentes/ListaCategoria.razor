@@ -1,0 +1,71 @@
+﻿@using System.ComponentModel;
+@inject IBasicViewModel ViewModel
+@implements IDisposable
+
+<div class="@_inlineClass">
+    @if (ViewModel.Categorias != null)
+    {
+        @foreach (Categoria categoria in ViewModel.Categorias)
+        {
+            <ItemCategoria id="@categoria.Id"
+                           ColorFondo="@categoria.ColorDominante"
+                           Nombre="@categoria.Nombre"
+                           TextColor="@categoria.TextColor"
+                           ImagenUrl="@categoria.ImagenUrl" />
+        }
+    }
+
+    @*
+    <ItemCategoria ColorFondo="#8c7874" TextColor="white" Nombre="Productos de Maquillaje" ImagenUrl="_content/FrontentCompartido/imagenes/maquillaje.png" />
+    <ItemCategoria ColorFondo="#c7c3c4" Nombre="Electrodomésticos" ImagenUrl="_content/FrontentCompartido/imagenes/electrodomesticos.png" />
+    <ItemCategoria ColorFondo="#c2949f" Nombre="Ropa" ImagenUrl="_content/FrontentCompartido/imagenes/ropa.png" />
+    <ItemCategoria ColorFondo="#585858" TextColor="white" Nombre="LLantas" ImagenUrl="_content/FrontentCompartido/imagenes/llantas.png" />
+    <ItemCategoria ColorFondo="#797671" TextColor="white" Nombre="Piezas de auto" ImagenUrl="_content/FrontentCompartido/imagenes/piezas_de_auto.png" />
+    <ItemCategoria ColorFondo="#b6924a" TextColor="white" Nombre="Frutas" ImagenUrl="_content/FrontentCompartido/imagenes/frutas.png" />
+    <ItemCategoria ColorFondo="#826a59" TextColor="white" Nombre="Bebidas" ImagenUrl="_content/FrontentCompartido/imagenes/bebidas.png" />
+    <ItemCategoria ColorFondo="#786856" TextColor="white" Nombre="Licores" ImagenUrl="_content/FrontentCompartido/imagenes/licores.png" />
+    <ItemCategoria ColorFondo="#6e7d8f" TextColor="white" Nombre="Telefonos" ImagenUrl="_content/FrontentCompartido/imagenes/telefonos.png" />
+    <ItemCategoria ColorFondo="#3d415e" TextColor="white" Nombre="Laptops" ImagenUrl="_content/FrontentCompartido/imagenes/laptops.png" />
+    <ItemCategoria ColorFondo="#b5ab8e" Nombre="vajilla" ImagenUrl="_content/FrontentCompartido/imagenes/vajilla.png  " />
+    <ItemCategoria ColorFondo="#a5a7ab" Nombre="Utensilios de cocina" ImagenUrl="_content/FrontentCompartido/imagenes/utencilios_de_cocina.png" />
+    *@
+
+</div>
+
+@code {
+    private string _inlineClass = "";
+
+    [Parameter]
+    public bool IsInline
+    {
+        set
+        {
+            if (value)
+            {
+                _inlineClass = "inline";
+            }
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        ViewModel.GetCategorias();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel.PropertyChanged += async (sender, e) =>
+        {
+            await InvokeAsync(() => StateHasChanged());
+        };
+        await base.OnInitializedAsync();
+    }
+
+    async void OnPropertyChangedHandler(object? sender, PropertyChangedEventArgs e)
+    {
+        await InvokeAsync(() => StateHasChanged());
+    }
+
+    public void Dispose() => ViewModel.PropertyChanged -= OnPropertyChangedHandler;
+}

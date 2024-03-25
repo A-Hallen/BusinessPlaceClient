@@ -1,0 +1,24 @@
+﻿@inherits LayoutComponentBase
+
+    <MenuHamburguesa Height="@(_headerHeight.ToString() + "px")" ToggleCart=@UpdateCartState IsMenuOpen=@IsTopMenuOpen/>
+    <SeccionCarrito Visibility=@IsCarritoVisible ToggleCart=@UpdateCartState/>
+
+    <main @onclick=@CerrarMenus >
+        <article style="padding-top: @(_headerHeight + 10)px; padding-bottom: @(_bottomBarHeight + 10)px; padding-inline: 10px; box-sizing:border-box; overflow: auto;">
+            @Body
+        </article>
+    </main>
+
+    <BottomBar Height="@($"{_bottomBarHeight}px")"/>
+
+@code {
+    private int _headerHeight = 64;
+    private int _bottomBarHeight = 50;
+    private bool IsCarritoVisible = false;
+    private bool IsTopMenuOpen = false;
+    private void UpdateCartState() => IsCarritoVisible = !IsCarritoVisible;
+    private void CerrarMenus(){
+        IsCarritoVisible = false;
+        IsTopMenuOpen = false;
+    }
+}
